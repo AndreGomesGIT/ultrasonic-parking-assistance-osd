@@ -1,62 +1,68 @@
 # Testing and Validation
 
-## Status
+## Evidence status
 
-This document defines a proposed validation procedure. No completed test records, oscilloscope captures, numerical results, or acceptance criteria have been supplied for this edition. No test below should be interpreted as passed or previously performed.
+The project archive includes a recorded display demonstration, physical oscilloscope photographs, a desktop waveform capture, simulation screenshots, and raw binary files.
 
-## Validation objectives
+These materials document development and investigation activity. They do not constitute a complete validation report: test setups, probe locations, reference distances, acceptance criteria, and repeatability records have not been supplied. The raw binary format has not been decoded or verified.
 
-- Assess whether displayed information corresponds to the observed obstacle position.
-- Examine repeatability under controlled conditions.
-- Characterize behavior with difficult targets and absent or unreliable echoes.
-- Observe sensing and video OSD operation together.
-- Record limitations with enough context to interpret the results.
+No new hardware tests were performed as part of this documentation review.
 
-## Proposed equipment and setup
+## Existing display evidence
 
-- The assembled system, its intended transducers, camera, and display.
-- A power source appropriate for the documented operating conditions.
-- A tape measure or other suitable distance reference.
-- Targets with recorded dimensions, materials, and orientations.
-- An oscilloscope and probes suitable for the electrical signals being observed, if waveform measurements are performed.
-- A means to capture the display and record observations.
+The demonstration recording is approximately 91 seconds long. Selected frames were inspected at approximately 9, 36, 64, and 82 seconds.
 
-Document the hardware revision, firmware revision, sensor mounting, target position, supply conditions, and relevant environmental conditions before testing. Keep confidential identifiers in private records where necessary.
-
-## Proposed test matrix
-
-| Test | Procedure | Evidence to record |
+| Approximate position | Observation | What remains unverified |
 | --- | --- | --- |
-| Baseline operation | Operate the system with a stationary target at a measured position. | Reference position, displayed information, and video behavior. |
-| Distance sweep | Move a target through a defined set of positions within the intended operating range. | Reference positions, readings or displayed states, and transition behavior. |
-| Repeatability | Repeat observations with the same setup and stationary target. | Sample count, variation, and intermittent behavior. |
-| Target properties | Repeat selected observations with different target materials, sizes, and angles. | Target description, detection behavior, and limitations. |
-| Missing or unreliable return | Observe behavior when no useful return is available under a controlled setup. | Display state, persistence of old information, and recovery behavior. |
-| Dynamic response | Move a target toward and away from the sensor along a documented path. | Visible response, discontinuities, and any measurable delay. |
-| Video integration | Observe the display while sensing information changes. | Overlay legibility, correspondence with sensing information, and visible video disturbances. |
-| Extended operation | Run for a defined duration under recorded conditions. | Duration, interruptions, drift, and recovery events. |
+| 9 s | A numerical value and proximity bars appear over the camera image. | Reference distance, units, and measurement error. |
+| 36 s | The `PARE` warning is visible with the bar indicator. | Trigger threshold and repeatability. |
+| 64 s and 82 s | Dashes appear in place of the numerical value. | Meaning of the state and conditions that produce it. |
 
-Test positions, sample counts, durations, and acceptance limits must be defined from the intended product requirements before execution. This document does not establish a detection range or accuracy specification.
+These observations establish visible display states. Sampling a recording does not establish continuous stability, transition timing, or the correctness of the underlying measurement.
 
-## Proposed oscilloscope investigation
+See the [demonstration recording](videos/demo.mp4) and the selected frames in [README.md](README.md).
 
-Where appropriate and accessible, waveform measurements can support investigation of excitation timing, transducer settling, return activity, and the relationship between sensing and display operation.
+## Existing waveform evidence
 
-For each capture, record the measurement purpose, probe arrangement, scale settings, trigger conditions, and interpretation. Use only signals and probing methods suitable for the equipment and circuit under test.
+### Physical measurements
 
-Public captures should retain enough context to support the stated conclusion while excluding confidential circuit details and proprietary timing or processing parameters. Keep the complete original evidence in the private project record.
+The oscilloscope photographs contain two-channel traces with burst-like activity and subsequent signal responses. A separate desktop capture also presents waveform data.
 
-## Results and acceptance
+Without a documented connection diagram and test setup, channel functions cannot be assigned reliably. Numerical annotations visible on instrument screens should not be promoted to product specifications without the supporting context.
 
-Record observations separately from conclusions. A displayed response is evidence of behavior under the recorded conditions; broader performance claims require corresponding measurements and coverage.
+### Simulation
 
-If the system provides numerical distance readings, compare them with a defined reference and report the measurement method, units, sample count, and uncertainty. If the output is categorical, report state transitions and incorrect or missing indications instead of assigning an unsupported numerical accuracy.
+The simulation screenshots display a virtual oscilloscope and circuit responses. They are evidence of simulation work and must remain distinct from physical bench measurements.
 
-Use `Pass` or `Fail` only against a previously defined criterion. Otherwise, label the outcome `Observation only`. Use `Not run` for unexecuted tests and `Inconclusive` when the evidence does not support a decision.
+The detailed simulation circuit and raw binary files are excluded from the public edition. A future public result can use a simplified plot or a reviewed capture with an explanation of the measured quantities.
+
+## Proposed quantitative validation
+
+The following tests are proposed follow-up work. They are not recorded as passed or completed.
+
+| Test | Method | Required record |
+| --- | --- | --- |
+| Distance comparison | Place a documented target at measured positions within the intended operating range. | Reference positions, displayed readings, units, sample count, and measurement uncertainty. |
+| Repeatability | Repeat measurements with a stationary target and unchanged setup. | Variation, missing readings, and intermittent states. |
+| Display transitions | Move a target through numerical, warning, and dash states. | Reference positions, state meanings, transition conditions, and repeatability. |
+| Target sensitivity | Compare defined target materials, sizes, and orientations. | Target description and detection behavior. |
+| Dynamic response | Move a target along a documented path with a suitable timing reference. | Measurement and display response; uncertainty in any reported delay. |
+| Video behavior | Observe changing sensor information while monitoring the camera view. | Overlay readability, visible disturbances, and recovery events. |
+| Missing input | Evaluate defined sensing or video input loss conditions. | Display behavior, persistence of old information, and recovery. |
+| Extended operation | Operate for a predetermined duration under recorded conditions. | Duration, interruptions, drift, and any abnormal behavior. |
+
+Define the intended operating range and acceptance criteria before executing these tests. Do not substitute a sensor datasheet's limits for measured performance of the assembled system.
+
+## Bench measurement procedure
+
+1. Record hardware and firmware revision, supply conditions, transducer mounting, target geometry, and relevant environmental conditions.
+2. Identify each probe location in the private test record and confirm that the probes and instrument are suitable for the signals being measured.
+3. Record channel functions, attenuation, time base, voltage scales, trigger settings, and the purpose of the capture.
+4. Repeat the observation under controlled conditions and retain the original files.
+5. Separate the measured observation from its interpretation and any proposed explanation.
+6. Prepare public evidence that supports the conclusion without revealing circuit topology or proprietary parameters.
 
 ## Test record template
-
-Copy this section for each executed test:
 
 ```text
 Test ID:
@@ -64,27 +70,19 @@ Date and operator:
 Objective:
 Hardware / firmware revision:
 Setup and environmental conditions:
-Target material, dimensions, angle, and reference position:
-Equipment and measurement settings:
-Acceptance criterion and its source:
+Target material, dimensions, orientation, and reference position:
+Equipment, probe locations, and settings:
+Acceptance criterion and source:
 Procedure and sample count:
 Observed result:
 Outcome: Not run / Pass / Fail / Observation only / Inconclusive
-Limitations and uncertainty:
+Limitations and measurement uncertainty:
 Evidence references:
 Follow-up action:
 ```
 
-## Limitations to document
+Use `Pass` or `Fail` only against a defined criterion. Use `Observation only` where behavior is documented without a corresponding acceptance criterion.
 
-Ultrasonic observations can depend on target geometry, acoustic reflections, mounting, and environmental conditions. Video evidence alone does not establish measurement accuracy or response time.
+## Current limits of the evidence
 
-Any future claims about automotive qualification, environmental tolerance, electromagnetic compatibility, reliability, or safety performance require separate supporting evidence. None are established by this proposed bench procedure.
-
-## Publication checklist
-
-- Identify whether each item is a proposed procedure or an executed test.
-- Include the conditions needed to interpret every published result.
-- Remove confidential information from screenshots, photographs, and captures.
-- State unresolved limitations alongside the relevant observations.
-- Link public evidence only after reviewing it for release.
+The reviewed material does not establish calibrated accuracy, operating range, response time, environmental tolerance, electromagnetic compatibility, automotive qualification, or production reliability. Those claims require their own supporting test records.

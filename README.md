@@ -1,57 +1,80 @@
 # Ultrasonic Parking Assistance System with Video OSD
 
-An embedded systems project combining ultrasonic obstacle sensing with a video on-screen display (OSD) for parking assistance.
+An embedded parking assistance project that combines ultrasonic sensing with on-screen information over a camera image.
 
-**Project author:** [Andre Gomes](https://github.com/AndreGomesGIT)  
+**Author:** [Andre Gomes](https://github.com/AndreGomesGIT)  
 **Repository:** `AndreGomesGIT/ultrasonic-parking-assistance-osd`
 
-## Overview
+![Demonstration of a numerical reading and proximity bars over the camera image](images/osd-distance.png)
 
-The project brings together ultrasonic sensing and video display integration to present obstacle information within a parking camera view. This repository provides a public engineering overview while protecting the implementation details of the underlying product.
+## Project overview
 
-The documentation focuses on the engineering considerations involved in connecting physical measurements to useful visual feedback: echo interpretation, measurement timing, hardware and firmware integration, and display behavior.
+This project connects ultrasonic obstacle sensing to a video on-screen display (OSD), allowing proximity information to appear within the same view as the camera image.
+
+The available project records include assembled hardware, PCB design revisions, 3D board views, circuit simulations, oscilloscope measurements, and a recorded display demonstration. This public portfolio presents the system's observable behavior and engineering scope while keeping the detailed implementation private.
+
+## Demonstrated display behavior
+
+Selected frames from the recorded demonstration show:
+
+- A numerical reading accompanied by a bar-style proximity indicator.
+- A `PARE` warning, Portuguese for `STOP`.
+- A `---` display state in place of the numerical reading.
+- These display elements appearing over a camera image.
+
+The recording also contains colored parking guide lines. Their source is not established by the reviewed material, so they are not attributed to this project's OSD implementation.
+
+The footage demonstrates display states; it does not establish measurement accuracy, detection range, response time, or the conditions that trigger each state.
+
+| Numerical display | Stop warning |
+| --- | --- |
+| ![Numerical display with proximity bars](images/osd-distance.png) | ![PARE warning over the camera view](images/osd-stop.png) |
+
+[Open the demonstration recording](videos/demo.mp4). GitHub may offer the recording as a download rather than an inline player.
 
 ## Functional architecture
 
-The following diagram describes the system at a conceptual level. It does not specify the circuit topology, component selection, or production implementation.
-
 ```mermaid
 flowchart LR
-    A[Ultrasonic sensing] --> B[Measurement and interpretation]
-    B --> C[OSD information]
-    V[Camera video] --> D[Video and OSD integration]
-    C --> D
+    A[Ultrasonic transducers] --> B[Sensing electronics]
+    B --> C[Embedded control and measurement]
+    C --> D[Video OSD]
+    V[Camera video] --> D
     D --> E[Display]
 ```
 
-## Engineering topics
+This is a functional overview. It omits circuit topology, component values, signal assignments, and firmware implementation.
 
-- Ultrasonic echo acquisition and interpretation.
-- Timing coordination between sensing and visual updates.
-- Integration of sensing hardware, embedded firmware, and video OSD.
-- Investigation of measurement limitations and interference.
-- Bench validation and clear communication of system behavior.
+## Engineering scope
 
-These topics define the scope of the engineering discussion. Specific components, algorithms, tools, and measured performance are documented only when supported by project records.
+- Integration of ultrasonic sensing electronics and embedded control.
+- Coordination of measurement information and video overlay updates.
+- PCB development and physical integration.
+- Simulation and bench waveform investigation.
+- Visual presentation of proximity information and warning states.
+
+The design archive includes schematic title blocks bearing the author's name. Firmware language, individual responsibilities across all revisions, commercial deployment history, and production quantities are not established by the reviewed records.
+
+## Hardware
+
+![Enclosed hardware unit from the project archive](images/enclosed-unit.jpg)
+
+The private archive contains assembled board photographs and multiple design views. The enclosure photograph is included here to show the physical unit without publishing detailed board routing or schematics.
 
 ## Documentation
 
-| File | Contents |
+| Document | Contents |
 | --- | --- |
-| [DEVELOPMENT.md](DEVELOPMENT.md) | Engineering considerations, documentation boundaries, and implementation details awaiting confirmation. |
-| [TESTING.md](TESTING.md) | Proposed validation procedure, evidence requirements, and test record format. |
+| [Development notes](DEVELOPMENT.md) | Hardware development evidence, sensing considerations, video integration, and documentation boundaries. |
+| [Testing and validation](TESTING.md) | Review of existing evidence and a proposed procedure for quantitative validation. |
 
-## Documentation status
+## Public repository scope
 
-This initial portfolio edition describes the project at a functional level. Hardware identifiers, firmware language, individual development responsibilities, production history, and numerical performance results remain to be confirmed from the author's records.
+This repository contains a portfolio case study and selected media. Production firmware, complete schematics, PCB routing, manufacturing files, raw measurement binaries, and proprietary processing parameters are excluded.
 
-The testing document is a proposed validation framework; it does not report completed tests or verified performance. Photos, video demonstrations, and measurement captures can be added when available and approved for public release.
+The source archive contains material from different revisions and reference documents for multiple components. A reference datasheet is not treated as proof that its component was used in the assembled system.
 
-## Repository scope
-
-This is a documentation repository. Production firmware, detailed schematics, PCB layouts, manufacturing files, component values, and proprietary signal-processing details are not included. The available material is insufficient to reproduce the product.
-
-No open-source license for the underlying hardware or firmware is granted by this repository.
+No license to the underlying hardware or firmware is granted by this documentation.
 
 ## Contact
 

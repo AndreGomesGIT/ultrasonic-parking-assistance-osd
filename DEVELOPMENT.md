@@ -1,72 +1,60 @@
 # Development Notes
 
-## Purpose and evidence status
+## Project context
 
-This document presents the engineering considerations behind an ultrasonic parking assistance system with video OSD. It keeps the discussion at a level suitable for a public portfolio.
+The Ultrasonic Parking Assistance System with Video OSD brings ultrasonic sensing, embedded control, and video display integration into one system. Its public documentation focuses on engineering scope and observable behavior without disclosing production firmware or detailed circuits.
 
-The project identity and its combination of ultrasonic sensing with video OSD are established. The detailed implementation history has not yet been supplied for this edition. The considerations below are therefore engineering context, not claims that a particular technique was implemented or a particular problem was resolved.
+## Development evidence
 
-## System responsibilities
+The supplied archive contains several complementary types of engineering material:
 
-The conceptual system has three connected responsibilities:
+| Material | What it supports | Interpretation limit |
+| --- | --- | --- |
+| Assembled board photographs | Physical hardware was assembled. | A photograph does not establish performance or production status. |
+| PCB layouts and 3D views | Board-level development and multiple design versions are documented. | Revision order and equivalence to the demonstrated hardware require confirmation. |
+| Schematics with the author's name | The archive includes design documentation attributed to Andre Gomes. | This does not establish sole responsibility for every part of the product. |
+| Simulation screenshots | Circuit behavior was investigated in a simulation environment. | Simulated responses are distinct from physical measurements. |
+| Oscilloscope photographs and a desktop waveform capture | Physical waveform investigation is documented. | Probe locations and test conditions are needed for quantitative interpretation. |
+| Display demonstration | Numerical, bar-style, warning, and dash states appear over a camera image. | Accuracy and state transition thresholds cannot be inferred from selected frames. |
 
-1. Acquire information from ultrasonic sensing hardware.
-2. Interpret that information for parking assistance.
-3. Present the resulting information through a video OSD.
+The detailed design files remain private. This summary records their relevance without reproducing their contents.
 
-The integration challenge is to make the visual output correspond to meaningful sensing information while accounting for measurement timing and the physical behavior of ultrasonic transducers.
+## Ultrasonic sensing and measurement
 
-## Ultrasonic measurement considerations
+Ultrasonic sensing involves both electrical signal handling and acoustic behavior. Excitation, transducer settling, and returned activity must be considered together when interpreting a measurement.
 
-An ultrasonic measurement depends on both the electronics and the acoustic path. Target shape, angle, material, and position can influence the returned echo. Transducer ringing and unwanted reflections can complicate the distinction between a useful return and other activity.
+The archive includes simulated traces and physical oscilloscope captures showing burst-like activity and subsequent signal behavior. Those records provide material for investigating timing and settling. They do not, on their own, identify a particular waveform as a valid obstacle echo or establish a minimum sensing distance.
 
-A project-specific account should explain how observations were investigated and how measurement validity was established, without disclosing proprietary thresholds, waveforms, component values, or processing logic.
+Target geometry, material, orientation, mounting, and surrounding reflections are relevant variables for a controlled validation program. Project-specific conclusions about these effects require recorded test conditions.
 
-Useful public evidence includes a simplified explanation of the observed behavior, an annotated measurement capture cleared for release, and a description of the effect on the displayed information.
+## Embedded control
 
-## Firmware considerations
+At the functional level, embedded control connects the sensing path to the information sent to the display. The recorded display states show that the user interface has more than one presentation mode: a numerical value, proximity bars, a stop warning, and dashes.
 
-Sensing and display updates introduce timing requirements that should be described in terms of observable behavior. Relevant questions include:
+The exact state logic, timing strategy, filtering, calibration, and measurement algorithm are not disclosed. The supplied material does not establish the firmware language or development toolchain.
 
-- How is a new measurement distinguished from an old one?
-- What should the display show when a measurement is unavailable or unreliable?
-- How are sensing activity and display updates coordinated?
-- How does the system recover after an interrupted or invalid measurement?
+## Video OSD integration
 
-The firmware language, microcontroller, timer configuration, interrupt design, and scheduling approach have not been confirmed. This document does not attribute a specific implementation to the project.
+The demonstration shows white text and proximity bars over a camera view. The `PARE` warning communicates a stop indication in Portuguese. Another observed state replaces the numerical value with `---`; its precise meaning and trigger conditions remain to be confirmed.
 
-## Video OSD considerations
+![Dash state observed in the demonstration](images/osd-dashes.png)
 
-The OSD connects measurement information to the video view used by the operator. A useful development account should describe what information is displayed, when it changes, and what happens when sensing information is unavailable.
+The visible parking guide lines are part of the recorded image, but their source is not established. Supported video standards, overlay update rate, and behavior during camera signal loss are also unverified.
 
-Video format, OSD hardware, overlay layout, update rate, and supported operating modes remain unspecified pending confirmation. No particular video standard or interface is implied.
+## PCB and physical integration
 
-## Hardware integration and investigation
+Assembled board photographs, routed layouts, and 3D renderings document the physical design side of the project. They provide evidence of board development beyond a conceptual block diagram.
 
-Bench investigation can help distinguish acoustic effects from electrical or timing issues. Relevant observations may include the relationship between excitation and return activity, supply behavior, sensing activity during video operation, and the consistency of repeated measurements.
+Public presentation uses an enclosure photograph and a simplified functional diagram. Detailed copper routing, component values, interconnections, and manufacturing information remain in the private archive.
 
-These are investigation areas rather than a record of completed work. Any future description of a resolved issue should connect the observation, investigation, decision, and verified outcome.
+## Author contribution and remaining context
 
-## Author contributions and project history
+Andre Gomes is credited as the project author, and the supplied schematics contain his name in their title blocks. A fuller professional account should add his confirmed responsibilities for hardware, PCB design, firmware, OSD integration, testing, and product support.
 
-The project is associated with André Gomes. Specific ownership of hardware design, PCB development, firmware, OSD integration, testing, and production support should be recorded after confirmation.
+The reviewed records do not establish development milestones, commercial release dates, production quantities, or the relationship between every board revision and the demonstration unit. Those details can be added when confirmed by the author.
 
-Commercial deployment, production quantities, development dates, and sole-author claims are not asserted in this edition.
+## Documentation approach
 
-## Details to confirm for the next edition
+Keep each engineering claim connected to evidence. For a future account of a resolved problem, describe the observed symptom, investigation, decision, and verified result. Preserve confidential implementation details in private records.
 
-| Topic | Information needed |
-| --- | --- |
-| Personal contribution | Responsibilities performed directly by the author. |
-| Product history | Development period and confirmed commercial or production status. |
-| Hardware platform | Publicly disclosable controller and sensing platform information. |
-| Firmware | Language and a high-level description of timing coordination. |
-| Video integration | Publicly disclosable OSD approach and supported video format. |
-| Engineering example | One documented challenge, investigation, decision, and outcome. |
-| Validation evidence | Test conditions, observations, and approved supporting material. |
-
-## Public disclosure boundary
-
-Keep public descriptions focused on system behavior and engineering reasoning. Exclude production source code, register-level configuration, complete circuit details, PCB files, manufacturing data, calibration constants, and proprietary processing parameters.
-
-See [TESTING.md](TESTING.md) for the proposed evidence and validation format.
+See [Testing and Validation](TESTING.md) for the distinction between existing evidence and additional tests.
